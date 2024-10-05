@@ -1,0 +1,52 @@
+"use strict";
+const plrequest = require("../../api/axiosInstance");
+/**
+ * 按照要求筛选实验区作品列表，需要登录
+ *
+ * @param {Object} type - Discussion 或 Experiment
+ * @param {Object} query - 查询参数对象
+ * @param {Array<String>} [query.tags=[]] - 选择的标签，数组之间为与关系，留空全选
+ * @param {Array<String>} [query.excludeTags=null] - 排除的标签
+ * @param {number} [query.take=18] - 获取的数量
+ * @param {String} [query.from=null] - 开始跳过的起始位置的作品ID
+ * @param {number} [query.skip=0] - 跳过的数量
+ * @returns {Promise<Object>}
+ */
+module.exports = async function queryExperiments(type, query) {
+    let q = {
+        Category: type,
+        Languages: [],
+        ExcludeLanguages: null,
+        Tags: [],
+        ModelTags: null,
+        ExcludeTags: null,
+        ModelID: null,
+        ParentID: null,
+        UserID: null,
+        Special: null,
+        From: null,
+        Skip: 0,
+        Take: 8,
+        Days: 0,
+        Sort: 0,
+        ShowAnnouncement: false,
+        ...query, //覆盖默认值,
+    };
+    if (q.Take > 100)
+        throw new Error("消息获取数量一次最多为100条");
+    q.Take = -q.Take;
+    const response = await plrequest.post("/Contents/QueryExperiments", {
+        Query: q,
+    }, {
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "Accept-Language": "zh-CN",
+            // @ts-ignore
+            "x-API-Token": this.token,
+            // @ts-ignore
+            "x-API-AuthCode": this.authCode,
+        },
+    });
+    return response.data;
+};

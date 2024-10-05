@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2020",            // 输出目标为 ES2020
+    "module": "commonjs",          // 使用 CommonJS 模块
+    "outDir": "./dist",            
+    "rootDir": "./src",            // 源文件根目录
+    "checkJs": true,               // 启用对 JavaScript 文件的类型检查
+    "strict": true,                // 启用所有严格类型检查选项
+    "skipLibCheck": true, 				 // 可以跳过库文件检查
+    "esModuleInterop": true,       // 允许默认导入非模块的 CommonJS 模块
+    "forceConsistentCasingInFileNames": true // 强制文件名一致性
+  },
+  "include": [
+    "./src/**/*"                   // 包含 src 目录下的所有文件
+  ],
+  "exclude": [
+    "node_modules",              // 排除 node_modules 目录
+    "./src/axiosInstance.ts",
+    "./src/config.ts"
+  ]
+}
