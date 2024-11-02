@@ -15,6 +15,8 @@ const getUser = require("./user/getUser");
 const getUserByComments = require("./user/getUserByCmmentID");
 const login = require("./user/login");
 
+const getNotification = require("./notification/get");
+
 /**
  * User 类用于创建用户实例，管理用户名、密码及相关操作。
  *
@@ -30,6 +32,7 @@ const login = require("./user/login");
  * @property {Object} user - 用户相关操作，包括登录及获取用户信息。
  * @property {Object} projects - 项目管理操作，包括查询、获取总结、获取详细信息、收藏项目及获取支持者。
  * @property {Object} experiment - 实验管理操作，包括更新实验、获取封面及获取实验。
+ * @property {Object} notification - 实验管理操作，包括更新实验、获取封面及获取实验。
  */
 
 class User {
@@ -68,6 +71,9 @@ class User {
       update: updateExperiment.bind(this),
       cover: cover.bind(this),
       get: getExperiment.bind(this),
+    };
+    this.notification = {
+      get: getNotification.bind(this),
     };
   }
 }

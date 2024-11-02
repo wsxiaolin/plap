@@ -11,7 +11,9 @@ module.exports = async function login() {
         Password: this.password,
         Version: 2411,
         Device: {
-            Identifier: Math.floor(Math.random() * Math.pow(2, 160)).toString(16).padStart(40, '0'),
+            Identifier: Math.floor(Math.random() * Math.pow(2, 160))
+                .toString(16)
+                .padStart(40, "0"),
             Language: "Chinese",
         },
         Statistic: null,
@@ -25,6 +27,7 @@ module.exports = async function login() {
     if (response.data.Status === 200) {
         this.token = response.data.Token;
         this.authCode = response.data.AuthCode;
+        this.id = response.data.Data.ID;
         return response.data;
     }
     else {
